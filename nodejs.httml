@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexusTopUp — Top Up Game Cepat & Murah 24 Jam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .card-active {
+      border-color: #6366f1;
+      background-color: rgba(99, 102, 241, 0.15);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur border-b border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-400 flex items-center justify-center font-extrabold text-white text-lg shadow-lg shadow-indigo-500/30">
+          N
+        </div>
+        <span class="font-extrabold text-xl tracking-tight">Nexus<span class="text-indigo-400">TopUp</span></span>
+      </div>
+      <div class="text-xs sm:text-sm text-slate-400 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Layanan Aktif 24 Jam
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <header class="max-w-5xl mx-auto w-full px-4 pt-6 pb-2">
+    <div class="rounded-2xl bg-gradient-to-r from-indigo-900 via-slate-900 to-cyan-950 border border-indigo-500/30 p-6 sm:p-8 relative overflow-hidden">
+      <div class="relative z-10 max-w-xl">
+        <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold mb-3">
+          ⚡ Proses Kilat 1–3 Menit
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+          Top Up Game Favoritmu Tanpa Ribet & Harga Bersahabat
+        </h1>
+        <p class="text-slate-300 text-sm mt-2">
+          Pilih game, masukkan ID akun, bayar via QRIS atau E-Wallet, dan item langsung masuk ke akunmu.
+        </p>
+      </div>
+      <div class="hidden sm:block absolute -right-10 -bottom-10 w-56 h-56 bg-indigo-500/20 rounded-full blur-3xl"></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-5xl mx-auto w-full px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
+    
+    <!-- Left Column: Steps -->
+    <div class="lg:col-span-2 space-y-6">
+
+      <!-- Step 1: Pilih Game -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center">1</span>
+          <h2 class="font-bold text-lg">Pilih Game</h2>
+        </div>
+        <div id="game-list" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+      <!-- Step 2: Masukkan Data Akun -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center">2</span>
+          <h2 class="font-bold text-lg">Masukkan Data Akun</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label id="label-userid" class="block text-xs text-slate-400 mb-1.5">User ID</label>
+            <input type="text" id="input-userid" placeholder="Contoh: 123456789"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition" />
+          </div>
+          <div id="zone-wrapper">
+            <label class="block text-xs text-slate-400 mb-1.5">Zone / Server ID</label>
+            <input type="text" id="input-zoneid" placeholder="Contoh: 2045"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition" />
+          </div>
+        </div>
+        <p id="id-helper" class="text-xs text-slate-400 mt-2.5">
+          *Buka profil game kamu untuk melihat User ID dan Zone ID.
+        </p>
+      </section>
+
+      <!-- Step 3: Pilih Nominal -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center">3</span>
+          <h2 class="font-bold text-lg">Pilih Nominal Top Up</h2>
+        </div>
+        <div id="nominal-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+      <!-- Step 4: Pilih Pembayaran -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center">4</span>
+          <h2 class="font-bold text-lg">Metode Pembayaran</h2>
+        </div>
+        <div id="payment-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Right Column: Checkout Summary -->
+    <div class="lg:col-span-1">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sticky top-20 space-y-4">
+        <h3 class="font-bold text-lg border-b border-slate-800 pb-3">Ringkasan Pesanan</h3>
+        
+        <div class="space-y-2.5 text-sm">
+          <div class="flex justify-between">
+            <span class="text-slate-400">Game</span>
+            <span id="summary-game" class="font-semibold text-white">Mobile Legends</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Item</span>
+            <span id="summary-item" class="font-semibold text-indigo-400">Belum dipilih</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Pembayaran</span>
+            <span id="summary-payment" class="font-semibold text-white">QRIS</span>
+          </div>
+          <div class="border-t border-slate-800 pt-2.5 flex justify-between items-center">
+            <span class="text-slate-300 font-medium">Total Bayar</span>
+            <span id="summary-total" class="text-xl font-extrabold text-cyan-400">Rp 0</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1.5">Nomor WhatsApp (Untuk Bukti Transaksi)</label>
+          <input type="tel" id="input-wa" placeholder="Contoh: 081234567890"
+            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition" />
+        </div>
+
+        <button onclick="processOrder()"
+          class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-[0.99] font-bold text-white shadow-lg shadow-indigo-600/30 transition cursor-pointer">
+          Beli Sekarang
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-10">
+    &copy; 2026 NexusTopUp. Semua hak dilindungi.
+  </footer>
+
+  <!-- Modal Konfirmasi Pesanan -->
+  <div id="order-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-lg text-white">Konfirmasi Pesanan</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white text-xl leading-none">&times;</button>
+      </div>
+      <div id="modal-details" class="space-y-2 text-sm text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800">
+        <!-- Filled dynamically -->
+      </div>
+      <p class="text-xs text-slate-400">
+        Klik tombol di bawah untuk meneruskan pesanan ke WhatsApp Admin dan mendapatkan kode pembayaran.
+      </p>
+      <div class="flex gap-3 pt-2">
+        <button onclick="closeModal()" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sm font-semibold">
+          Batal
+        </button>
+        <a id="wa-checkout-link" href="#" target="_blank"
+          class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-center text-sm font-bold text-white shadow-lg shadow-emerald-600/20">
+          Lanjut ke WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Ganti dengan nomor WhatsApp admin kamu (awalan 62)
+    const ADMIN_WHATSAPP = "6281234567890";
+
+    const gamesData = {
+      mlbb: {
+        name: "Mobile Legends",
+        publisher: "Moonton",
+        icon: "⚔️",
+        hasZone: true,
+        idLabel: "User ID",
+        idPlaceholder: "Contoh: 123456789",
+        helper: "*Buka profil MLBB kamu, lihat angka di bawah nickname. Format: User ID (Zone ID).",
+        items: [
+          { name: "86 Diamonds", price: 20000 },
+          { name: "172 Diamonds", price: 39000 },
+          { name: "257 Diamonds", price: 58000 },
+          { name: "344 Diamonds", price: 77000 },
+          { name: "514 Diamonds", price: 115000 },
+          { name: "Weekly Diamond Pass", price: 27500 }
+        ]
+      },
+      ff: {
+        name: "Free Fire",
+        publisher: "Garena",
+        icon: "🔥",
+        hasZone: false,
+        idLabel: "Player ID",
+        idPlaceholder: "Contoh: 987654321",
+        helper: "*Klik profil di pojok kiri atas lobi Free Fire untuk menyalin Player ID.",
+        items: [
+          { name: "70 Diamonds", price: 10000 },
+          { name: "140 Diamonds", price: 19500 },
+          { name: "355 Diamonds", price: 48000 },
+          { name: "720 Diamonds", price: 96000 },
+          { name: "Membership Mingguan", price: 28000 },
+          { name: "Membership Bulanan", price: 85000 }
+        ]
+      },
+      pubg: {
+        name: "PUBG Mobile",
+        publisher: "Tencent Games",
+        icon: "🪖",
+        hasZone: false,
+        idLabel: "Character ID",
+        idPlaceholder: "Contoh: 5123456789",
+        helper: "*Masuk ke profil PUBG Mobile, salin Character ID di bagian atas avatar.",
+        items: [
+          { name: "60 UC", price: 14500 },
+          { name: "325 UC", price: 72000 },
+          { name: "660 UC", price: 143000 },
+          { name: "1800 UC", price: 358000 }
+        ]
+      },
+      valorant: {
+        name: "Valorant",
+        publisher: "Riot Games",
+        icon: "🎯",
+        hasZone: false,
+        idLabel: "Riot ID (Nama#TAG)",
+        idPlaceholder: "Contoh: JettMain#ID1",
+        helper: "*Masukkan Riot ID lengkap beserta tagline (#) tanpa spasi.",
+        items: [
+          { name: "475 VP", price: 52000 },
+          { name: "1000 VP", price: 104000 },
+          { name: "2050 VP", price: 208000 },
+          { name: "3650 VP", price: 365000 }
+        ]
+      }
+    };
+
+    const paymentMethods = [
+      { name: "QRIS", desc: "Semua E-Wallet & M-Banking", badge: "Otomatis" },
+      { name: "DANA", desc: "Transfer Instan", badge: "Populer" },
+      { name: "GoPay", desc: "Bayar via Aplikasi Gojek", badge: "Cepat" },
+      { name: "Transfer Bank BCA", desc: "Dicek Otomatis", badge: "Bank" }
+    ];
+
+    let selectedGameKey = "mlbb";
+    let selectedItemIndex = null;
+    let selectedPayment = "QRIS";
+
+    function formatRupiah(num) {
+      return "Rp " + num.toLocaleString("id-ID");
+    }
+
+    function renderGames() {
+      const container = document.getElementById("game-list");
+      container.innerHTML = Object.keys(gamesData).map(key => {
+        const game = gamesData[key];
+        const activeClass = key === selectedGameKey ? "card-active" : "border-slate-800 hover:border-slate-700 bg-slate-950";
+        return `
+          <div onclick="selectGame('${key}')"
+            class="cursor-pointer rounded-xl border p-3.5 text-center transition ${activeClass}">
+            <div class="text-3xl mb-1.5">${game.icon}</div>
+            <div class="font-bold text-sm text-white">${game.name}</div>
+            <div class="text-[11px] text-slate-400">${game.publisher}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function selectGame(key) {
+      selectedGameKey = key;
+      selectedItemIndex = null;
+      const game = gamesData[key];
+
+      document.getElementById("label-userid").innerText = game.idLabel;
+      document.getElementById("input-userid").placeholder = game.idPlaceholder;
+      document.getElementById("id-helper").innerText = game.helper;
+
+      const zoneWrapper = document.getElementById("zone-wrapper");
+      if (game.hasZone) {
+        zoneWrapper.classList.remove("hidden");
+      } else {
+        zoneWrapper.classList.add("hidden");
+        document.getElementById("input-zoneid").value = "";
+      }
+
+      renderGames();
+      renderNominals();
+      updateSummary();
+    }
+
+    function renderNominals() {
+      const container = document.getElementById("nominal-list");
+      const items = gamesData[selectedGameKey].items;
+      container.innerHTML = items.map((item, idx) => {
+        const activeClass = idx === selectedItemIndex ? "card-active" : "border-slate-800 hover:border-slate-700 bg-slate-950";
+        return `
+          <div onclick="selectNominal(${idx})"
+            class="cursor-pointer rounded-xl border p-3.5 transition flex flex-col justify-between ${activeClass}">
+            <div class="font-bold text-sm text-white">${item.name}</div>
+            <div class="text-xs font-semibold text-cyan-400 mt-2">${formatRupiah(item.price)}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function selectNominal(idx) {
+      selectedItemIndex = idx;
+      renderNominals();
+      updateSummary();
+    }
+
+    function renderPayments() {
+      const container = document.getElementById("payment-list");
+      container.innerHTML = paymentMethods.map(pm => {
+        const activeClass = pm.name === selectedPayment ? "card-active" : "border-slate-800 hover:border-slate-700 bg-slate-950";
+        return `
+          <div onclick="selectPayment('${pm.name}')"
+            class="cursor-pointer rounded-xl border p-3.5 transition flex items-center justify-between ${activeClass}">
+            <div>
+              <div class="font-bold text-sm text-white">${pm.name}</div>
+              <div class="text-xs text-slate-400">${pm.desc}</div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              ${pm.badge}
+            </span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function selectPayment(name) {
+      selectedPayment = name;
+      renderPayments();
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const game = gamesData[selectedGameKey];
+      document.getElementById("summary-game").innerText = game.name;
+      document.getElementById("summary-payment").innerText = selectedPayment;
+
+      if (selectedItemIndex !== null) {
+        const item = game.items[selectedItemIndex];
+        document.getElementById("summary-item").innerText = item.name;
+        document.getElementById("summary-total").innerText = formatRupiah(item.price);
+      } else {
+        document.getElementById("summary-item").innerText = "Belum dipilih";
+        document.getElementById("summary-total").innerText = "Rp 0";
+      }
+    }
+
+    function processOrder() {
+      const game = gamesData[selectedGameKey];
+      const userId = document.getElementById("input-userid").value.trim();
+      const zoneId = document.getElementById("input-zoneid").value.trim();
+      const userWa = document.getElementById("input-wa").value.trim();
+
+      if (!userId) {
+        alert(`Harap masukkan ${game.idLabel} terlebih dahulu.`);
+        return;
+      }
+      if (game.hasZone && !zoneId) {
+        alert("Harap masukkan Zone / Server ID terlebih dahulu.");
+        return;
+      }
+      if (selectedItemIndex === null) {
+        alert("10.000.");
+        return;
+      }
+      if (!userWa) {
+        alert("6287866140961.");
+        return;
+      }
+
+      const item = game.items[selectedItemIndex];
+      const fullAccountId = game.hasZone ? `${userId} (${zoneId})` : userId;
+
+      document.getElementById("modal-details").innerHTML = `
+        <div class="flex justify-between"><span class="text-slate-400">Game:</span> <span class="font-semibold text-white">${game.name}</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">ID Akun:</span> <span class="font-semibold text-white">${fullAccountId}</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Item:</span> <span class="font-semibold text-indigo-400">${item.name}</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Metode Bayar:</span> <span class="font-semibold text-white">${selectedPayment}</span></div>
+        <div class="flex justify-between border-t border-slate-800 pt-2 mt-2"><span class="text-slate-400">Total Bayar:</span> <span class="font-bold text-cyan-400">${formatRupiah(item.price)}</span></div>
+      `;
+
+      const message = `Halo Admin NexusTopUp, saya mau order:\n\n` +
+        `• *Game:* ${game.name}\n` +
+        `• *ID Akun:* ${fullAccountId}\n` +
+        `• *Item:* ${item.name}\n` +
+        `• *Pembayaran:* ${selectedPayment}\n` +
+        `• *Total:* ${formatRupiah(item.price)}\n\n` +
+        `Mohon info nomor tujuan pembayarannya. Terima kasih!`;
+
+      const waUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(message)}`;
+      document.getElementById("wa-checkout-link").href = waUrl;
+
+      const modal = document.getElementById("order-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("order-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    // Init
+    renderGames();
+    renderNominals();
+    renderPayments();
+  </script>
+</body>
+</html>
